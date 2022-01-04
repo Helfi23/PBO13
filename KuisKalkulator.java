@@ -9,10 +9,11 @@ import java.awt.Color;
 import java.awt.GridLayout;
 import javax.swing.*;
 import java.awt.event.*;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
 
 /**
  *
- * @author Helfi Apriliyandi F
+ * @author Helfi Apriliyandi Firdaos
  */
 public class KuisKalkulator extends JFrame implements MouseListener, ActionListener {
 
@@ -84,17 +85,21 @@ public class KuisKalkulator extends JFrame implements MouseListener, ActionListe
 
     @Override
     public void actionPerformed(ActionEvent ae) {
-        int userInputValue = Integer.parseInt(userInput.getText());
+        try {
+            int userInputValue = Integer.parseInt(userInput.getText());
 
-        if (ae.getSource() == checkButton) {
-            if (randomFirstValue + randomSecondValue == userInputValue) {
-                resultText.setText("Selamat, jawaban anda benar !!");
-                getContentPane().setBackground(Color.green);
-            } else {
-                resultText.setText("Maaf, jawaban anda salah !!");
-                getContentPane().setBackground(Color.red);
+            if (ae.getSource() == checkButton) {
+                if (randomFirstValue + randomSecondValue == userInputValue) {
+                    resultText.setText("Selamat, jawaban anda benar !!");
+                    getContentPane().setBackground(Color.green);
+                } else {
+                    resultText.setText("Maaf, jawaban anda salah !!");
+                    getContentPane().setBackground(Color.red);
+                }
             }
-
+        } catch (NumberFormatException err) {
+            JFrame jFrame = new JFrame();
+            JOptionPane.showMessageDialog(jFrame, "Masukan jawaban anda");
         }
 
     }
